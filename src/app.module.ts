@@ -27,9 +27,11 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaService } from '@modules/prisma/prisma.service';
+import { QuestionModule } from '@modules/question/question.module';
+import { MediaModule } from '@modules/media/media.module';
 
 @Module({
-  imports: [], // Removed MongoModule since it's related to Mongoose
+  imports: [QuestionModule, MediaModule], // Removed MongoModule since it's related to Mongoose
   exports: [PrismaService],
   controllers: [AppController],
   providers: [AppService, PrismaService],

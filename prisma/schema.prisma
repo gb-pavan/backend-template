@@ -13,9 +13,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  name  String
-  email String @unique
+model Question {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  title      String   // Question text
+  options    String[] // Array of answer choices
+  correctAns String   // Correct answer
+  refId      String?  // Optional reference ID to link with another entity
+  mediaIds   String[] // Stores media IDs (optional, may or may not relate to the question)
+  createdAt  DateTime @default(now()) // Timestamp
+}
+
+model Media {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  url       String   // File URL (image, video, or PDF)
+  type      String   // "image", "video", or "pdf"
+  questionId String? // Nullable: media may or may not be related to a question
+  uploadedAt DateTime @default(now()) // Timestamp
 }
 
